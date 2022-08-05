@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7503f1175bd607c488fffb54a4c3b6e4, type: 3}
+  m_Name: HP0 2
+  m_EditorClassIdentifier: 
+  CurrentHP: 2000
+  MaxHp: 2000
+  maxPoiseHealth: 0
+  poiseHealth: 0
+  atk: 0
+  def: 0
+  MoveSpeedRate: 0
+  CritRate: 0
+  CritDamage: 0
+  QCoolDownRate: 100
+  ECoolDownRate: 100
+  RechargeRate: 100
+  currentEnergy: 100
+  MaxEnergy: 100
+  specialVal: 100
+  currentSpecialVal: 100
