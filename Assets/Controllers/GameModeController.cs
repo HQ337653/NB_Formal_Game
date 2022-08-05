@@ -1,6 +1,6 @@
 using UnityEngine;
 
-//call an event(bool) when the game state is switched 
+//call an event(bool) when the game state is switched (CharacterChangedIfToActive&ModeChangediFTo2D)
 public class GameModeController : MonoBehaviour
 {
     
@@ -11,6 +11,9 @@ public class GameModeController : MonoBehaviour
 
     public static handler CharacterChangedIfToActive;
     private bool isCharacerActive;
+
+
+
     private void Awake()
     {
         Is2d = true;
@@ -18,6 +21,7 @@ public class GameModeController : MonoBehaviour
     }
     public static void changeMode()
     {
+        Debug.Log(2);
         GameModeController g = FindObjectOfType<GameModeController>();
         g.Is2d=!g.Is2d;
         ModeChangediFTo2D?.Invoke(g.Is2d);

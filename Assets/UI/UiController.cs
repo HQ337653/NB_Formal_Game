@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 //collect all the Uis function into one script 
 namespace NBGame.UI
 {
@@ -30,7 +29,7 @@ namespace NBGame.UI
         public SimpleBarSetter HealthBar;
         public SimpleBarSetter EnergyBar;
 
-        private void Start()
+        private void Awake()
         {
             GameModeController.CharacterChangedIfToActive += switchMode;
             GameModeController.ModeChangediFTo2D += switchAtkUi;
@@ -117,6 +116,7 @@ namespace NBGame.UI
 
         public void switchAtkUi(bool Notatk)
         {
+            Debug.Log("calleds");
             Atk.SetActive(!Notatk);
             NotAtk?.SetActive(Notatk);
         }

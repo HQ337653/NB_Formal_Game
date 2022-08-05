@@ -17,6 +17,7 @@ public class test : MonoBehaviour
 
     private void ctx()
     {
+        Debug.Log("called 0");
         GameModeController.changeMode();
     }
 }
