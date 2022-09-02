@@ -19,13 +19,18 @@ namespace NBGame.UI
         [SerializeField]
         private GameObject NotAtk;
         [SerializeField]
-        public GameObject Health;
+        private GameObject Health;
         [SerializeField]
-        public GameObject Movement;
+        private GameObject Movement;
         [SerializeField]
-        public GameObject Characters;
+        private GameObject Characters;
 
-        public BarSetter SpecialBar;
+        [SerializeField]
+        private GameObject ComboDisplay;
+
+        public specialBars specialBars;
+
+        // public BarSetter SpecialBar;
         public SimpleBarSetter HealthBar;
         public SimpleBarSetter EnergyBar;
 
@@ -103,7 +108,7 @@ namespace NBGame.UI
 
         public void changeSpecialBarVal(float percent)
         {
-            SpecialBar.setValue(percent);
+           // SpecialBar.setValue(percent);
         }
 
         #endregion
@@ -114,9 +119,9 @@ namespace NBGame.UI
             gameObject.SetActive(i);
         }
 
-        public void switchAtkUi(bool Notatk)
+        private void switchAtkUi(bool Notatk)
         {
-            Debug.Log("calleds");
+            ComboDisplay.SetActive(!Notatk);
             Atk.SetActive(!Notatk);
             NotAtk?.SetActive(Notatk);
         }
@@ -124,6 +129,7 @@ namespace NBGame.UI
         public void disActiveAtkPart()
         {
             Atk.SetActive(false);
+            ComboDisplay.SetActive(false);
             NotAtk?.SetActive(false);
         }
 

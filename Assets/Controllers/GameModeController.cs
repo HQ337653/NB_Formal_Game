@@ -21,7 +21,6 @@ public class GameModeController : MonoBehaviour
     }
     public static void changeMode()
     {
-        Debug.Log(2);
         GameModeController g = FindObjectOfType<GameModeController>();
         g.Is2d=!g.Is2d;
         ModeChangediFTo2D?.Invoke(g.Is2d);
