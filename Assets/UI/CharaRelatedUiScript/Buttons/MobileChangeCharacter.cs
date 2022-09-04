@@ -30,12 +30,9 @@ namespace NBGame.Player
         private void Awake()
         {
             coolDownTime = 0.5f;
-        }
-
-        private void Start()
-        {
             currentController.Loaded += Initialize;
         }
+
 
         private void Initialize()
         {
