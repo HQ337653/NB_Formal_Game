@@ -21,6 +21,8 @@ namespace NBGame.UI
         [SerializeField]
         private GameObject Health;
         [SerializeField]
+        private BuffIconController BuffDisplayScript;
+        [SerializeField]
         private GameObject Movement;
         [SerializeField]
         private GameObject Characters;
@@ -109,6 +111,26 @@ namespace NBGame.UI
         public void changeSpecialBarVal(float percent)
         {
            // SpecialBar.setValue(percent);
+        }
+
+        public void addBuff(Sprite Icon)
+        {
+            BuffDisplayScript.addIcon(Icon);
+        }
+
+        public void removeBuff(Sprite Icon)
+        {
+            BuffDisplayScript.RemoveIcon(Icon);
+        }
+
+        public void setBuff(List<Sprite> Icons)
+        {
+            BuffDisplayScript.Init(Icons);
+        }
+
+        public void clearBuff()
+        {
+            BuffDisplayScript.removeAllIcon();
         }
 
         #endregion

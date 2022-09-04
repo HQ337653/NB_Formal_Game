@@ -131,6 +131,8 @@ namespace NBGame.Player
         bool AtkKeyCanceld;
         // prebeb for the shield(both E and Q)
         [SerializeField] GameObject shield;
+        [SerializeField] Sprite EBuffIcon;
+        [SerializeField] Sprite QBuffIcon;
 
 
         #region unityMethods
@@ -205,6 +207,7 @@ namespace NBGame.Player
         {
             states = States.skill2;
             TeamShield s = new TeamShield();
+            s.buffIcon = QBuffIcon;
             s.shieldPrefab = shield;
             gameObject.transform.parent.parent.gameObject.GetComponent<teamScripts>().addBuff(s);
             yield return new WaitForSecondsRealtime(1.5f / AtkSpeed);
@@ -212,7 +215,7 @@ namespace NBGame.Player
         }
         public class TeamShield : MonoBehaviour, TeamBuff
         {
-
+            public Sprite buffIcon;
             public GameObject shieldPrefab;
             public GameObject shieldObj;
             teamScripts targetScript;
@@ -223,7 +226,7 @@ namespace NBGame.Player
             public void initiate(teamScripts target)
             {
                 targetScript = target;
-
+                targetScript.addBuffIcon(buffIcon);
                 //create a shield graphic
                 shieldObj = Instantiate(shieldPrefab);
                 target.addObject(shieldObj);
@@ -256,6 +259,7 @@ namespace NBGame.Player
                 //id and the shield match
                 if (i == id && !breaked)
                 {
+                    targetScript.RemoveBuffIcon(buffIcon);
                     targetScript.removeBuff(this);
                     // Debug.Log(shieldObj);
                     Destroy(shieldObj);
@@ -277,6 +281,7 @@ namespace NBGame.Player
             states = States.skill1;
             ShieldHp s = new ShieldHp();
             s.shieldObj = shield;
+            s.buffIcon = EBuffIcon;
             characterScripts thisCharacter = gameObject.transform.parent.gameObject.GetComponent<characterScripts>();
             thisCharacter.addBuff(s);
             yield return new WaitForSecondsRealtime(1.5f / AtkSpeed);
@@ -284,6 +289,7 @@ namespace NBGame.Player
         }
         public class ShieldHp : Buff
         {
+            public Sprite buffIcon;
             public GameObject shieldObj;
             characterScripts targetChara;
             CharacterHp targetScript;
@@ -298,6 +304,8 @@ namespace NBGame.Player
                 currentShield = Instantiate(shieldObj);
                 currentShield.transform.parent = target.position.transform;
                 currentShield.transform.localPosition = new Vector3(0, 0, 0);
+                //add buff icon
+                targetChara.AddBuffIcon(buffIcon);
                 // add shield Hp
                 id = targetScript.addShield(50);
                 targetScript.shieldBreak += shieldbreak;
@@ -335,6 +343,7 @@ namespace NBGame.Player
                 //id and the shield match
                 if (i == id && !breaked)
                 {
+                    targetChara.RemoveBuffIcon(buffIcon);
                     targetChara.removeBuff(this);
                     Destroy(currentShield);
                     targetScript.shieldBreak -= shieldbreak;

@@ -335,6 +335,7 @@ MonoBehaviour:
   position: {fileID: 6476860557222102050}
   graphic: {fileID: 2284288716411375011}
   HpScript: {fileID: 1372672103545767463}
+  charaChangeUiEvents: {fileID: 3777508649804809100}
 --- !u!1 &6476860557222102050
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,6 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThreeDdScript: {fileID: 758043671670326896}
   TwoDdScript: {fileID: 6476860557222102062}
+  charaChangeUiEvents: {fileID: 3777508649804809100}
   EImage: {fileID: 21300000, guid: 87c0b29c84a5f1b479af7b31aa6aad68, type: 3}
   QImage: {fileID: 21300000, guid: 6d98381ed659ea94e96d8884721663b5, type: 3}
   normalImage: {fileID: 21300000, guid: e6cecb171b16f564aa2f12fafb1d513a, type: 3}
@@ -468,3 +470,5 @@ MonoBehaviour:
   Animation: {fileID: 6480074155922838638}
   hpScript: {fileID: 1372672103545767463}
   shield: {fileID: 1370740379673014031, guid: 92de56766f9a35a4d912889c67c2aa18, type: 3}
+  EBuffIcon: {fileID: 21300000, guid: 191f57a5b9b402449910b4c0a6c1c3fd, type: 3}
+  QBuffIcon: {fileID: 21300000, guid: 0b30de15eb5bf0141a3ce084349c8ac4, type: 3}

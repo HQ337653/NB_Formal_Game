@@ -17,11 +17,11 @@ namespace NBGame.Player
         public event boolEvent highLightQ;
         public delegate void BarInfo(Vector2 scale, Sprite s);
         public event BarInfo setBar;
-        public delegate void Button(Sprite s);
-        public event Button changeEButton;
-        public event Button changeQButton;
-        public event Button changeDashButton;
-        public event Button changeNormalButton;
+        public delegate void sprite(Sprite s);
+        public event sprite changeEButton;
+        public event sprite changeQButton;
+        public event sprite changeDashButton;
+        public event sprite changeNormalButton;
         public delegate void AllRelatedUi(Sprite E, Sprite Q, Sprite normal, Sprite Dash);
 
         public void AllCharaRelatedUiChanged(Sprite E, Sprite Q, Sprite normal, Sprite Dash)
@@ -39,6 +39,24 @@ namespace NBGame.Player
             showSpecialBar(Special);
 
 
+        }
+
+        public delegate void SpriteList(List<Sprite> s);
+        public event SpriteList InitBuffIcon;
+        public event sprite addBuff;
+        public event sprite removeBuff;
+
+        public void BuffIconInit(List<Sprite> icons)
+        {
+            InitBuffIcon?.Invoke(icons);
+        }
+        public void BuffIconAdd(Sprite icon)
+        {
+            addBuff?.Invoke(icon);
+        }
+        public void BuffIconRemove(Sprite TargetIcon)
+        {
+            removeBuff?.Invoke(TargetIcon);
         }
 
 

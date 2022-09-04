@@ -41,9 +41,11 @@ namespace NBGame.Player
         }
         void subScribe(CharaChangeUiEvents e)
         {
+            e.addBuff += UiController.addBuff;
+            e.removeBuff += UiController.removeBuff;
+            e.InitBuffIcon += UiController.setBuff;
             e.HpChanged += UiController.changeHp;
             e.EnegryChanged += UiController.changeEnergy;
-            e.SpecialBarChanged += UiController.changeSpecialBarVal;
             //time
             e.ETimeChanged += UiController.setEcooldown;
             e.QTimeChanged += UiController.setQcooldown;
@@ -59,9 +61,11 @@ namespace NBGame.Player
         }
         void UnsubScribe(CharaChangeUiEvents e)
         {
+            e.addBuff -= UiController.addBuff;
+            e.removeBuff -= UiController.removeBuff;
+            e.InitBuffIcon -= UiController.setBuff;
             e.HpChanged -= UiController.changeHp;
             e.EnegryChanged -= UiController.changeEnergy;
-            e.SpecialBarChanged -= UiController.changeSpecialBarVal;
             //time
             e.ETimeChanged -= UiController.setEcooldown;
             e.QTimeChanged -= UiController.setQcooldown;

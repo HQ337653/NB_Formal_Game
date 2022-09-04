@@ -52,7 +52,22 @@ namespace NBGame.Player
             buff.initiate(this);
         }
 
-        
+        public void addBuffIcon(Sprite buffIcon)
+        {
+            for(int i=1; i<= TeamControllerScript.characters.Count; i++)
+            {
+                TeamControllerScript.characters[i].GetComponent<characterScripts>().AddBuffIcon(buffIcon);
+            }
+        }
+        public void RemoveBuffIcon(Sprite buffIcon)
+        {
+            for (int i = 1; i <= TeamControllerScript.characters.Count; i++)
+            {
+                TeamControllerScript.characters[i].GetComponent<characterScripts>().RemoveBuffIcon(buffIcon);
+            }
+        }
+
+
 
         public void removeBuff(TeamBuff buff)
         {

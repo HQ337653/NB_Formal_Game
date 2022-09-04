@@ -15,8 +15,15 @@ namespace NBGame.Player
         public GameObject graphic;
         public CharacterHp HpScript;
 
-
+        [SerializeField]
+        CharaChangeUiEvents charaChangeUiEvents;
         List<Buff> buffs = new List<Buff>();
+
+        List<Sprite> BuffIcons = new List<Sprite>();
+        private void OnEnable()
+        {
+            charaChangeUiEvents.BuffIconInit(BuffIcons);
+        }
         public void addBuff(Buff buff)
         {
             for(int i =0; i< buffs.Count; i++)
@@ -35,6 +42,19 @@ namespace NBGame.Player
             buff.initiate(this);
         }
 
+        // add buff icon Ui
+        public void AddBuffIcon(Sprite Icon)
+        {
+            BuffIcons.Add(Icon);
+            charaChangeUiEvents.BuffIconAdd(Icon);
+        }
+
+        // remove buff icon Ui
+        public void RemoveBuffIcon(Sprite Icon)
+        {
+            BuffIcons.Remove(Icon);
+            charaChangeUiEvents.BuffIconRemove(Icon);
+        }
 
         public void removeBuff(Buff buff)
         {

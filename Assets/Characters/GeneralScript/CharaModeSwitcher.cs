@@ -10,6 +10,8 @@ namespace NBGame.Player
         public charaControllerThreeD ThreeDdScript;
         public charaControllerTwoD TwoDdScript;
         [SerializeField]
+        CharaChangeUiEvents charaChangeUiEvents;
+        [SerializeField]
         Sprite EImage;
         [SerializeField]
         Sprite QImage;
@@ -27,7 +29,6 @@ namespace NBGame.Player
        public GameObject specialBar;
 
         public bool TwoD;
-        CharaChangeUiEvents charaChangeUiEvents;
         //protected characterHealthObj Hp;
 
         private void OnEnable()
@@ -43,8 +44,6 @@ namespace NBGame.Player
         private void Awake()
         {
             GameModeController.ModeChangediFTo2D += change;
-            charaChangeUiEvents = GetComponent<CharaChangeUiEvents>();
-            //Hp = GetComponent<CharacterHp>().CharacterInfo;
             TwoDdScript.enabled = true;
             TwoDdScript.enabled = false;
             ThreeDdScript.enabled = true;

@@ -41,7 +41,6 @@ public class EffectsManager : MonoBehaviour
     private static Queue<GameObject> floatTextList = new Queue<GameObject>();
     public static void DoFloatingText(Vector3 Position, int damage, DamageTextType Type)
     {
-        Debug.Log(_MainCamera.WorldToViewportPoint(Position));
             GameObject g = floatTextList.Dequeue();
             g.transform.position = Position;
             g.GetComponent<DamagePopUp>().Setup(damage);
