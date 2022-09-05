@@ -32,11 +32,6 @@ namespace NBGame.Player
             inputActions = new PlayerInput();
             inputActions.Enable();
             canChange = true;
-        }
-
-
-        private void Start()
-        {
             currentController.Loaded += Initialize;
         }
         private void Initialize()
