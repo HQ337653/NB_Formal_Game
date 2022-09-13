@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 //this class sets the frame rate, graphic, and windows resolution
@@ -13,7 +14,13 @@ public class GameAppController : MonoBehaviour
     {
         Application.targetFrameRate = (int)rate;
     }
-#if UNITY_EDITOR_WIN
+
+    void Start()
+    {
+        //SetResizeavkeWindow();
+        ChangeScreenSize(Level.one);
+    }
+//#if UNITY_WIN
     public enum Level
     {
         one,two, three,full
@@ -36,7 +43,12 @@ public class GameAppController : MonoBehaviour
             Screen.fullScreen = true;
         }
     }
+    public void SetResizeavkeWindow()
+    {
+       // PlayerSettings.resizableWindow=true;
 
-#endif
+    }
+
+//#endif
 
 }

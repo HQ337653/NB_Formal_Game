@@ -8,12 +8,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Character&Enemy
+  - Character
   - Water
   - UI
   - World
   - InGameEffects
-  - 
+  - HitableForChara
   - 
   - 
   - 

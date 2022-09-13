@@ -1,19 +1,11 @@
 using UnityEngine;
 
-//call an event(bool) when the game state is switched (CharacterChangedIfToActive&ModeChangediFTo2D)
 public class GameModeController : MonoBehaviour
 {
-    
     public delegate void handler(bool i);
-    public static handler ModeChangediFTo2D;
-
+    #region changeD: GameModeController.ModeChangediFTo2D(if 2d)
     private bool Is2d;
-
-    public static handler CharacterChangedIfToActive;
-    private bool isCharacerActive;
-
-
-
+    public static handler ModeChangediFTo2D;
     private void Awake()
     {
         Is2d = true;
@@ -34,7 +26,12 @@ public class GameModeController : MonoBehaviour
             ModeChangediFTo2D?.Invoke(g.Is2d);
         }
     }
+    #endregion
 
+    #region changeCharacterActivation: GameModeController.CharacterChangedIfToActive(ifChangeToActive)
+
+    public static handler CharacterChangedIfToActive;
+    private bool isCharacerActive;
     public static void SetCharaActivation(bool isActive)
     {
         
@@ -45,4 +42,14 @@ public class GameModeController : MonoBehaviour
             CharacterChangedIfToActive?.Invoke(g.isCharacerActive);
         }
     }
+    #endregion
+    // if there are anything that changes timescalse before pause, and wants to continue it after pause, please set the timescale again in the resume function
+    #region pause: GameModeController.PauseGame(Pause)
+
+    public static handler PauseGame;
+    public static void SetPause(bool ifPause)
+    {
+        PauseGame?.Invoke(ifPause);
+    }
+    #endregion
 }

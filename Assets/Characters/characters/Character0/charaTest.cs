@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using NBGame.HealthSystem;
-
+using NBGame.CameraMovement;
 namespace NBGame.Player
 {
     // this script is the script that control character04 
@@ -278,6 +278,7 @@ namespace NBGame.Player
         #region E
         private IEnumerator E()
         {
+            CameraFollowCharacter.ChangeZoom(-3,0.1f);
             states = States.skill1;
             ShieldHp s = new ShieldHp();
             s.shieldObj = shield;
@@ -285,6 +286,7 @@ namespace NBGame.Player
             characterScripts thisCharacter = gameObject.transform.parent.gameObject.GetComponent<characterScripts>();
             thisCharacter.addBuff(s);
             yield return new WaitForSecondsRealtime(1.5f / AtkSpeed);
+             CameraFollowCharacter.ChangeZoom(0, 0.15f);
             states = States.idle;
         }
         public class ShieldHp : Buff
@@ -488,7 +490,6 @@ namespace NBGame.Player
         {
             states = States.specialAtk;
             AtkKeyInputed = false;
-            Debug.Log("pressed for " + time + " second");
             yield return new WaitForSecondsRealtime(1.1f / AtkSpeed);
             states = States.idle;
         }

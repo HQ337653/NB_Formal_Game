@@ -39,6 +39,10 @@ namespace NBGame.editor
             {
                 script.ChangeScreenSize(GameAppController.Level.full);
             }
+            if (GUILayout.Button("set window "))
+            {
+                script.SetResizeavkeWindow();
+            }
         }
     }
 }

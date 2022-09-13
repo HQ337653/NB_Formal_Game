@@ -24,8 +24,6 @@ namespace NBGame.Player
             get; private set;
         }
         [SerializeField]
-        private CameraAnchor cam;
-        [SerializeField]
         private UiController UiController;
         private void Awake()
         {
@@ -105,10 +103,13 @@ namespace NBGame.Player
                     }
                 }
             }
-  
+            for (int j = 1; j <= characters.Count; j++)
+            {
+                characters[j]?.SetActive(false);
+            }
             changeCharaOnScene(currentCharacter);
             Loaded?.Invoke();
-            TeamCharacterChanged?.Invoke();
+            //TeamCharacterChanged?.Invoke();
         }
 
         public void changeMember(GameObject one, GameObject two, GameObject three, GameObject four)
@@ -119,20 +120,22 @@ namespace NBGame.Player
             CharaFourPre = four;
         }
 
+        //return the number of character previously in the scene
         private int changeCharaOnScene(int i, Transform targetTransform)
         {
-
+            // switch off the previous chara
             UnsubScribe(getChara(currentCharacter).GetComponentInChildren<CharaChangeUiEvents>());
             int prevChara = currentCharacter;
+            getChara(currentCharacter).GetComponentInChildren<CharaModeSwitcher>()?.characterLeaveScene();
+            characters[prevChara]?.SetActive(false);
             currentCharacter = i;
-            for(int j = 1; j <= characters.Count; j++)
-            {
-                characters[j]?.SetActive(false);
-            }
+         
+            // activate the new chara
             characters[i].transform.position = targetTransform.position;
+            characters[i].GetComponentInChildren<CharaModeSwitcher>()?.charaEnterScene();
             subScribe(characters[i].GetComponentInChildren<CharaChangeUiEvents>());
             characters[i].SetActive(true);
-            cam.follow(characters[i].transform.GetChild(0).gameObject);
+            CameraFollowCharacter.followChara(characters[i].transform.GetChild(0).gameObject);
             CharacterChanged?.Invoke(currentCharacter);
             UiController.specialBars.setActivation(i);
             return prevChara;
@@ -173,7 +176,7 @@ namespace NBGame.Player
 
         public delegate void Event();
         public delegate void Character(int index);
-        public event Event TeamCharacterChanged;
+        //public event Event TeamCharacterChanged;
         public event Character CharacterChanged;
         public event Event Loaded;
     }

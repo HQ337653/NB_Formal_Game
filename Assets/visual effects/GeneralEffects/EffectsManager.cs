@@ -17,12 +17,15 @@ public class EffectsManager : MonoBehaviour
     private float ComboWaitTime;
     private float DefaltComboWaitTime;
     private bool comboed;
+
+    private static EffectsManager selfScript;
     public int comboNum
     {
         get; private set;
     }
     private void Start()
     {
+        selfScript = this;
         PopUptextPrefab = _PopUptextPrefab;
         comboNum = 0;
         DefaltComboWaitTime = 2;
@@ -85,14 +88,14 @@ public class EffectsManager : MonoBehaviour
 
     public static void addCombo()
     {
-        EffectsManager effectsManager = FindObjectOfType<EffectsManager>();
-        if (effectsManager.comboNum==0)
+      
+        if (selfScript.comboNum==0)
         {
-            effectsManager.StartCoroutine(effectsManager.comboWait());
+            selfScript.StartCoroutine(selfScript.comboWait());
         }
         else
         {
-            effectsManager.comboed = true;
+            selfScript.comboed = true;
         }
     }
     #endregion
@@ -100,8 +103,7 @@ public class EffectsManager : MonoBehaviour
     public static void RedCubeTester(Vector3 Position)
     {
 
-        EffectsManager effectsManager = FindObjectOfType<EffectsManager>();
-        Instantiate(effectsManager.Test, new Vector3(Position.x, Position.y, Position.z), Quaternion.identity);
+        Instantiate(selfScript.Test, new Vector3(Position.x, Position.y, Position.z), Quaternion.identity);
     }
 }
 

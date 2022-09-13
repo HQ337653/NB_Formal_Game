@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using NBGame.Player;
-//change character on mobile
 namespace NBGame.editor
 {
     [CustomEditor(typeof(TeamController))]

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,8 +49,23 @@ namespace NBGame.Player
             TwoDdScript.enabled = false;
             ThreeDdScript.enabled = true;
             specialBar = Instantiate(specialBarPrefeb);
+
+            GameModeController.PauseGame += pause;
         }
 
+        private void pause(bool i)
+        {
+            if (i)
+            {
+                TwoDdScript.enabled = false;
+                ThreeDdScript.enabled = false;
+            }
+            else
+            {
+                TwoDdScript.enabled = TwoD;
+                ThreeDdScript.enabled = !TwoD;
+            }
+        }
 
         private void change(bool IsTwoD)
         {
@@ -61,6 +77,30 @@ namespace NBGame.Player
         private void OnDestroy()
         {
             GameModeController.ModeChangediFTo2D -= change;
+        }
+
+        public void charaEnterScene()
+        {
+            if (TwoDdScript.enabled)
+            {
+                TwoDdScript.SwitchToScene();
+            }
+            if (ThreeDdScript.enabled)
+            {
+                ThreeDdScript.SwitchToScene();
+            }
+        }
+
+        internal void characterLeaveScene()
+        {
+            if (TwoDdScript.enabled)
+            {
+                TwoDdScript.LeaveScene();
+            }
+            if (ThreeDdScript.enabled)
+            {
+                ThreeDdScript.LeaveScene();
+            }
         }
     }
 }

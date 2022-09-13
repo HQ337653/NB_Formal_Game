@@ -139,6 +139,7 @@ namespace NBGame.UI
         public void switchMode(bool i)
         {
             gameObject.SetActive(i);
+            ComboDisplay.SetActive(i);
         }
 
         private void switchAtkUi(bool Notatk)

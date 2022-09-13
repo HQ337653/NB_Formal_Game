@@ -12,16 +12,19 @@ namespace NBGame.Player
 
         private void Awake()
         {
-            TeamControllerScript.TeamCharacterChanged += changeTeamCharacter;
+            // TeamControllerScript.TeamCharacterChanged += changeTeamCharacter;
+            
+                TeamControllerScript.Loaded += NewTeamLoaded;
             TeamControllerScript.CharacterChanged += changeCharacter;
         }
         #region changeCharacter
-        private void changeTeamCharacter()
+        private void NewTeamLoaded()
         {
-            //throw new NotImplementedException();
+            RemoveAllBuff();
         }
 
         public delegate void Event(Transform transform);
+        //return the transform component of the character when the character is swithched into the scene
         public event Event CharacterOnSceneChanged;
         private void changeCharacter(int index)
         {
@@ -51,10 +54,14 @@ namespace NBGame.Player
             buffs.Add(buff);
             buff.initiate(this);
         }
+        public void removeBuff(TeamBuff buff)
+        {
+            buffs.Remove(buff);
+        }
 
         public void addBuffIcon(Sprite buffIcon)
         {
-            for(int i=1; i<= TeamControllerScript.characters.Count; i++)
+            for (int i=1; i<= TeamControllerScript.characters.Count; i++)
             {
                 TeamControllerScript.characters[i].GetComponent<characterScripts>().AddBuffIcon(buffIcon);
             }
@@ -67,11 +74,9 @@ namespace NBGame.Player
             }
         }
 
-
-
-        public void removeBuff(TeamBuff buff)
+        private void RemoveAllBuff()
         {
-            buffs.Remove(buff);
+            buffs=new List<TeamBuff>();
         }
 
         #endregion

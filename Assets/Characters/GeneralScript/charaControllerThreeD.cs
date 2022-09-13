@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,6 @@ namespace NBGame.Player
         protected Vector2 movingDirection;
         [SerializeField]
         protected Rigidbody selfRb;
-        //moving speed = (if)Moving*direction*(defalt)WalkSpeed*SpeedFactor
         protected bool MovingFromInput;
         protected float WalkSpeed;
         public virtual float SpeedFactor { get; set; }
@@ -34,6 +34,11 @@ namespace NBGame.Player
             inputActions.In3d.Moving.performed += ctx => MovingFromInput = true;
             inputActions.In3d.Moving.canceled += ctx => MovingFromInput = false;
             //change InputAction to bool in frame
+        }
+
+        public void EnterScene()
+        {
+
         }
 
         protected void Start()
@@ -75,10 +80,11 @@ namespace NBGame.Player
             }
             protected void OnDisable()
             {
-                inputActions.Disable();
+            inputActions.Disable();
             }
 
-            protected void FixedUpdate()
+
+        protected void FixedUpdate()
             {
             if (MovingFromInput) {
                 selfRb.velocity = new Vector3(movingDirection.x * WalkSpeed* SpeedFactor / Time.timeScale , selfRb.velocity.y, movingDirection.y * WalkSpeed * SpeedFactor / Time.timeScale );
@@ -87,5 +93,12 @@ namespace NBGame.Player
 
             }
 
-        } 
+        internal void SwitchToScene()
+        {
+        }
+
+        internal void LeaveScene()
+        {
+        }
+    } 
 } 
