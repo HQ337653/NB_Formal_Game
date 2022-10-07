@@ -105,7 +105,8 @@ namespace NBGame.Player
             }
             for (int j = 1; j <= characters.Count; j++)
             {
-                characters[j]?.SetActive(false);
+                 characters[j]?.SetActive(false);
+                characters[j].GetComponent<characterScripts>().position.GetComponent<CharaModeSwitcher>().characterLeaveScene();
             }
             changeCharaOnScene(currentCharacter);
             Loaded?.Invoke();
@@ -123,23 +124,30 @@ namespace NBGame.Player
         //return the number of character previously in the scene
         private int changeCharaOnScene(int i, Transform targetTransform)
         {
+            bool moving;
+
             // switch off the previous chara
-            UnsubScribe(getChara(currentCharacter).GetComponentInChildren<CharaChangeUiEvents>());
-            int prevChara = currentCharacter;
+               UnsubScribe(getChara(currentCharacter).GetComponentInChildren<CharaChangeUiEvents>());
+               int prevChara = currentCharacter;
+            moving= (bool)(getChara(currentCharacter).GetComponentInChildren<CharaModeSwitcher>()?.Move3D);
             getChara(currentCharacter).GetComponentInChildren<CharaModeSwitcher>()?.characterLeaveScene();
-            characters[prevChara]?.SetActive(false);
-            currentCharacter = i;
-         
-            // activate the new chara
-            characters[i].transform.position = targetTransform.position;
-            characters[i].GetComponentInChildren<CharaModeSwitcher>()?.charaEnterScene();
-            subScribe(characters[i].GetComponentInChildren<CharaChangeUiEvents>());
+               characters[prevChara]?.SetActive(false);
+               currentCharacter = i;
+
+               // activate the new chara
+               characters[i].transform.position = targetTransform.position;
+               characters[i].GetComponentInChildren<CharaModeSwitcher>()?.charaEnterScene();
+               subScribe(characters[i].GetComponentInChildren<CharaChangeUiEvents>());
+            characters[i].GetComponentInChildren<CharaModeSwitcher>().Move3D = moving;
             characters[i].SetActive(true);
+            
             CameraFollowCharacter.followChara(characters[i].transform.GetChild(0).gameObject);
-            CharacterChanged?.Invoke(currentCharacter);
-            UiController.specialBars.setActivation(i);
+               CharacterChanged?.Invoke(currentCharacter);
+               UiController.specialBars.setActivation(i);
             return prevChara;
+
         }
+
 
         public int changeCharaOnScene(int i)
         {

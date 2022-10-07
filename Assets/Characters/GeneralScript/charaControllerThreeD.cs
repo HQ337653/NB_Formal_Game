@@ -13,7 +13,7 @@ namespace NBGame.Player
         protected Vector2 movingDirection;
         [SerializeField]
         protected Rigidbody selfRb;
-        protected bool MovingFromInput;
+        public bool MovingFromInput;
         protected float WalkSpeed;
         public virtual float SpeedFactor { get; set; }
         public virtual float AtkSpeed { get; set; }
@@ -30,16 +30,14 @@ namespace NBGame.Player
         {
             inputActions = new PlayerInput();
             inputActions.Enable();
-            inputActions.In3d.MoveDirection.performed += ctx => { movingDirection = ctx.ReadValue<Vector2>(); };
-            inputActions.In3d.Moving.performed += ctx => MovingFromInput = true;
-            inputActions.In3d.Moving.canceled += ctx => MovingFromInput = false;
+            inputActions.In3d.MoveDirection.performed += ctx => { if (isActiveAndEnabled) { movingDirection = ctx.ReadValue<Vector2>(); } };
+            inputActions.In3d.Moving.performed += ctx => { if (isActiveAndEnabled) { MovingFromInput = true;  } };
+            inputActions.In3d.Moving.canceled += ctx => { if (isActiveAndEnabled) { MovingFromInput = false;  } };
+            //inputActions.In3d.Moving.
             //change InputAction to bool in frame
         }
-
-        public void EnterScene()
-        {
-
-        }
+        
+        
 
         protected void Start()
         {
@@ -48,6 +46,7 @@ namespace NBGame.Player
 
         private void Update()
         {
+            //Debug.Log(MovingFromInput);
             if (MovingFromInput)
             {
                 if (movingDirection.x > 0)
@@ -59,6 +58,18 @@ namespace NBGame.Player
                     flip(false);
                 }
             }
+
+            
+        }
+
+
+        protected void FixedUpdate()
+            {
+            if (MovingFromInput) {
+                selfRb.velocity = new Vector3(movingDirection.x * WalkSpeed* SpeedFactor / Time.timeScale , selfRb.velocity.y, movingDirection.y * WalkSpeed * SpeedFactor / Time.timeScale );
+                
+            }
+
         }
 
        protected void flip(bool right)
@@ -73,32 +84,24 @@ namespace NBGame.Player
             }
             
         }
-
-            protected void OnEnable()
+        #region active and disactive
+        protected void OnEnable()
             {
-                inputActions.Enable();
-            }
-            protected void OnDisable()
+            selfRb.velocity = Vector3.zero;
+        }
+        protected void OnDisable()
             {
-            inputActions.Disable();
-            }
-
-
-        protected void FixedUpdate()
-            {
-            if (MovingFromInput) {
-                selfRb.velocity = new Vector3(movingDirection.x * WalkSpeed* SpeedFactor / Time.timeScale , selfRb.velocity.y, movingDirection.y * WalkSpeed * SpeedFactor / Time.timeScale );
-                
-            }
-
-            }
-
-        internal void SwitchToScene()
+            //inputActions.Disable();
+        }
+        //called before the gameObject is disactive
+        public virtual void LeaveScene()
         {
         }
-
-        internal void LeaveScene()
+        //called before the gameObject is activated
+        public virtual void SwitchToScene()
         {
         }
+        #endregion
+
     } 
 } 

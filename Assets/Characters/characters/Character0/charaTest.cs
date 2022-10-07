@@ -2,7 +2,8 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using NBGame.HealthSystem;
-using NBGame.CameraMovement;
+using System;
+
 namespace NBGame.Player
 {
     // this script is the script that control character04 
@@ -88,6 +89,7 @@ namespace NBGame.Player
                     CanWalk = false;
                     CanAtk = false;
                     CanDash = false;
+                    Animation.skill_3();
                 }
                 if (value == States.stun)
                 {
@@ -110,7 +112,7 @@ namespace NBGame.Player
 
         public enum States
         {
-            walk, idle, dash, preformAtk1, preformAtk2, preformAtk3, preformAtk4, preformAtk5, specialAtk, emptyState, skill1, skill2, stun
+            walk, idle, dash, preformAtk1, preformAtk2, preformAtk3, preformAtk4, preformAtk5, specialAtk, emptyState, skill1, skill2, stun, enterScene
 
         }
 
@@ -147,12 +149,12 @@ namespace NBGame.Player
             base.Start();
             CanWalk = true;
             combatNum = 0;
-            inputActions.In3d.NormalAtk.performed += ctx => { AtkKeyInputed = true; if (combatNum == 0) { StartCoroutine(normalAtkProcess()); } };
+            inputActions.In3d.NormalAtk.performed += ctx => { if(isActiveAndEnabled) {AtkKeyInputed = true; if (combatNum == 0) { StartCoroutine(normalAtkProcess()); } } };
             //inputActions.In3d.NormalAtkLongPress.performed += ctx => { AtkKeyInputed = true; if (combatNum == 0) { StartCoroutine(normalAtkProcess()); } };
             inputActions.In3d.NormalAtk.canceled += ctx => AtkKeyCanceld = true;
-            inputActions.In3d.Dash.performed += ctx => { if (CanDash) StartCoroutine(dashProcess()); };
-            inputActions.In3d.E.performed += ctx => { if (CanAtk) { StartCoroutine(E()); } };
-            inputActions.In3d.Q.performed += ctx => { if (CanAtk) { StartCoroutine(Q()); } };
+            inputActions.In3d.Dash.performed += ctx => { if (isActiveAndEnabled && CanDash) StartCoroutine(dashProcess()); };
+            inputActions.In3d.E.performed += ctx => { if (isActiveAndEnabled && CanAtk) { StartCoroutine(E()); } };
+            inputActions.In3d.Q.performed += ctx => { if (isActiveAndEnabled && CanAtk) { StartCoroutine(Q()); } };
             hpScript.stun +=stun ;
 
         }
@@ -175,17 +177,37 @@ namespace NBGame.Player
                 states = States.walk;
                 selfRb.velocity = new Vector3(movingDirection.x * WalkSpeed*SpeedFactor / Time.timeScale , selfRb.velocity.y, movingDirection.y * WalkSpeed * SpeedFactor / Time.timeScale);
             }
-            else if(states != States.dash && !MovingFromInput && CanWalk)
+            else if(states != States.dash && !MovingFromInput && CanWalk && states!= States.idle)
             {
                 states = States.idle;
             }
         }
 
+        public override void SwitchToScene()
+        {
+            Animation.backToActive();
+            _states = States.enterScene;
+
+        }
+
+        public override void LeaveScene()
+        {
+            
+
+        }
+
         private void OnEnable()
         {
+            
+            
             base.OnEnable();
-            states = States.idle;
+            //states = States.idle;
             combatNum = 0;
+        }
+
+        private void OnDisable()
+        {
+           // states = States.idle;
         }
         #endregion
 
@@ -278,7 +300,6 @@ namespace NBGame.Player
         #region E
         private IEnumerator E()
         {
-            CameraFollowCharacter.ChangeZoom(-3,0.1f);
             states = States.skill1;
             ShieldHp s = new ShieldHp();
             s.shieldObj = shield;
@@ -286,7 +307,6 @@ namespace NBGame.Player
             characterScripts thisCharacter = gameObject.transform.parent.gameObject.GetComponent<characterScripts>();
             thisCharacter.addBuff(s);
             yield return new WaitForSecondsRealtime(1.5f / AtkSpeed);
-             CameraFollowCharacter.ChangeZoom(0, 0.15f);
             states = States.idle;
         }
         public class ShieldHp : Buff
@@ -445,7 +465,7 @@ namespace NBGame.Player
         }
         IEnumerator normalAtk(int combatNumber)
         {
-           // Debug.Log(combatNum);
+            float beforeHitSec= 0.5f;
             AtkKeyInputed = false;
             if (combatNumber==1)
             {
@@ -454,23 +474,27 @@ namespace NBGame.Player
           else  if (combatNumber == 2)
             {
                 states = States.preformAtk2;
+                beforeHitSec = 0.55f;
             }
            else if (combatNumber == 3)
             {
                 states = States.preformAtk3;
+
             }
           else  if (combatNumber == 4)
             {
                 states = States.preformAtk4;
+                beforeHitSec = 0.55f;
             }
            else
             {
                 states = States.preformAtk5;
             }
-            yield return new WaitForSecondsRealtime(0.6f/AtkSpeed);
+            yield return new WaitForSecondsRealtime(beforeHitSec / AtkSpeed);
             Vector3 center = gameObject.transform.position + gameObject.transform.forward * 0.4f;
             Vector3 half = new Vector3(0.15f, 0.25f, 0.13f);
             //testRange(center, half);
+            bool hited = false;
             Collider[] c = Physics.OverlapBox(center, half);
             foreach (Collider Enemy in c)
             {
@@ -479,10 +503,24 @@ namespace NBGame.Player
                 {
                     EffectsManager.addCombo();
                     script.damage(100, false);
+                    hited = true;
                 }
             }
-            //testRange( center,  half);
-            yield return new WaitForSecondsRealtime(0.5f / AtkSpeed);
+            
+            if (hited)
+            {
+
+                Animation.changeSpeed(0.1f);
+                yield return new WaitForSecondsRealtime(0.07f / AtkSpeed);
+                Animation.changeSpeed(1);
+                yield return new WaitForSecondsRealtime(1.1f -0.07f - beforeHitSec / AtkSpeed);
+
+            }
+            else
+            {
+                //testRange( center,  half);
+                yield return new WaitForSecondsRealtime(1.1f- beforeHitSec / AtkSpeed);
+            }
             states = States.idle;
         }
 

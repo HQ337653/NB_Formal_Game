@@ -1,11 +1,16 @@
-﻿using UnityEngine;
+
+using UnityEngine;
 using System.Collections;
 using Spine;
 using Spine.Unity;
+using UnityEngine.PlayerLoop;
+using System.Threading.Tasks;
 
 public class KnightControl : MonoBehaviour
 {
     #region Inspector
+
+    public MeshRenderer graphics;
     public float AtkSpeed;
     public float MoveSpeed;
 
@@ -43,26 +48,29 @@ public class KnightControl : MonoBehaviour
     public string skillAnimationName_2;
     [SpineAnimation]
     public string skillAnimationName_3;
-
+    [SpineAnimation]
+    public string idle_2;
     #endregion
 
 
-   [SerializeField] SkeletonAnimation skeletonAnimation;
+
+    [SerializeField] SkeletonAnimation skeletonAnimation;
 
     // Spine.AnimationState and Spine.Skeleton are not Unity-serialized objects. You will not see them as fields in the inspector.
     public Spine.AnimationState spineAnimationState;
     public Spine.Skeleton skeleton;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         spineAnimationState = skeletonAnimation.AnimationState;
         spineAnimationState.SetAnimation(0, idleAnimationName, true);
         skeleton = skeletonAnimation.Skeleton;
     }
 
+
     public void running()
     {
-      spineAnimationState.SetAnimation(0, runAnimationName, true).TimeScale = MoveSpeed;
+        spineAnimationState.SetAnimation(0, runAnimationName, true).TimeScale = MoveSpeed;
     }
     public void walking()
     {
@@ -111,24 +119,30 @@ public class KnightControl : MonoBehaviour
 
     public void changeWalkSpeed(float speed)
     {
-        if (speed>=0) {
+        if (speed >= 0)
+        {
             MoveSpeed = speed;
             changeSpeed(MoveSpeed);
         }
     }
+
+    public void backToActive()
+    {
+        spineAnimationState.SetAnimation(0, idle_2, true);
+    }
+
+
+
     public void changeAtkSpeed(float speed)
     {
         if (speed >= 0)
         {
             AtkSpeed = speed;
-            changeSpeed(AtkSpeed);
         }
     }
-    private void changeSpeed(float speed)
+    public void changeSpeed(float speed)
     {
-      //TrackEntry trackEntry=  spineAnimationState.GetCurrent(0);
-        //trackEntry.TimeScale = speed;
+        skeletonAnimation.timeScale = speed;
     }
-
 
 }

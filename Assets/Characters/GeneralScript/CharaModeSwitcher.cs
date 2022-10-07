@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace NBGame.Player
 
         public Sprite charaIcon;
 
+        public bool Move3D{ get { return ThreeDdScript.MovingFromInput; } set { ThreeDdScript.MovingFromInput = value; } }
 
         [SerializeField]
          GameObject specialBarPrefeb;
