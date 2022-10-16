@@ -10,7 +10,8 @@ public class specialBars : MonoBehaviour
     public void AddBar(GameObject Bar)
     {
             currentBars.Add(Bar);
-        Bar.transform.parent = transform;
+        Bar.transform.SetParent(transform);
+       // Bar.transform.parent = transform;
         Bar.transform.localPosition = Vector3.zero;
         Bar.SetActive(false);
     }

@@ -1,5 +1,8 @@
-[System.Serializable]
-public class WorldData 
+namespace NBGame.saveSystem
 {
-    
+    [System.Serializable]
+    public class WorldData
+    {
+
+    }
 }

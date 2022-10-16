@@ -1,6 +1,9 @@
-[System.Serializable]
-public class CharacterData
+namespace NBGame.saveSystem
 {
-    public int num;
-    public int SceneNum;
+    [System.Serializable]
+    public class CharacterData
+    {
+        public int num;
+        public int SceneNum;
+    }
 }
