@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using NBGame.saveSystem;
 //load the scene named gamedata-(index).txt,change the scene to game scene.
 public class LoaderButton : MonoBehaviour
 {
