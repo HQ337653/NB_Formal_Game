@@ -93,6 +93,7 @@ namespace NBGame.Player
             {
             //inputActions.Disable();
         }
+
         //called before the gameObject is disactive
         public virtual void LeaveScene()
         {
@@ -100,6 +101,11 @@ namespace NBGame.Player
         //called before the gameObject is activated
         public virtual void SwitchToScene()
         {
+        }
+
+        public virtual void ChangeToTwo()
+        {
+            MovingFromInput=false;
         }
         #endregion
 

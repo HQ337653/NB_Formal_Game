@@ -1,5 +1,5 @@
 using UnityEngine;
-[CreateAssetMenu(menuName = "HpObj/GeneralHpObj")]
+[CreateAssetMenu(menuName = "NBGame/HpObj/GeneralHpObj")]
 public class GeneralHpObj : ScriptableObject
 {
     public int CurrentHP;

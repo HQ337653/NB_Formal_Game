@@ -53,14 +53,14 @@ namespace NBGame.Player
                 Vector3 center = transform.TransformPoint(selfCollider.center);
                 center = new Vector3(center.x, center.y-0.1f, center.z);
                 Vector3 half = new Vector3(selfCollider.size.x* selfCollider.gameObject.transform.lossyScale.x/2, selfCollider.size.y * selfCollider.gameObject.transform.lossyScale.y/2, selfCollider.size.z * selfCollider.gameObject.transform.lossyScale.z/2);
-               // testRange(center,half);
+                // testRange(center,half);
                 //Debug.Log(Physics.BoxCast(center, half, Vector3.down, Quaternion.identity));
                 //  return Physics.BoxCast(transform.position, new Vector3(tran);
                 Collider[] c = Physics.OverlapBox(center, half, transform.parent.rotation,3);
-                Debug.Log(c.Length);
+                //Debug.Log(c.Length);
                 foreach(Collider co in c)
                 {
-                    Debug.Log(co);
+                   // Debug.Log(co);
                 }
                  if (c.Length > 0)
                  {
@@ -77,12 +77,13 @@ namespace NBGame.Player
 
         internal void LeaveScene()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            
         }
 
         internal void SwitchToScene()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         // Update is called once per fram
@@ -126,6 +127,11 @@ namespace NBGame.Player
                     flip(false);
                 }*/
 
+        }
+
+        public virtual void ChangeToThree()
+        {
+            //throw new NotImplementedException();
         }
     }
 }

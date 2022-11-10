@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "HpObj/characterHealthObj")]
+[CreateAssetMenu(menuName = "NBGame/HpObj/characterHealthObj")]
 public class characterHealthObj : ScriptableObject
 {
     public int CurrentHP;

@@ -71,6 +71,14 @@ namespace NBGame.Player
 
         private void change(bool IsTwoD)
         {
+            if (IsTwoD)
+            {
+                ThreeDdScript.ChangeToTwo();
+            }
+            else
+            {
+                TwoDdScript.ChangeToThree();
+            }
             TwoD = IsTwoD;
             TwoDdScript.enabled = TwoD;
             ThreeDdScript.enabled = !TwoD;

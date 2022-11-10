@@ -32,9 +32,6 @@ namespace NBGame.saveSystem
             arr[0] = new playerInfo();
             arr[1] = new playerInfo();
             arr[2] = new playerInfo();
-            Debug.Log(JsonUtility.ToJson(arr));
-            Debug.Log(JsonUtility.ToJson(new playerInfo()));
-            Debug.Log(Application.persistentDataPath);
         }
 
         //load the game in Application.persistentDataPath+ Gamedata- + i + .txt
@@ -97,12 +94,12 @@ namespace NBGame.saveSystem
 
         private void saveGame()
         {
-            Debug.Log("save");
             WorldObjs = getAllWorldData();
             EnemyObjs = getAllEnemy();
             CharaObjs = getAllCharacter();
             NpcObjs = getAllNpc();
             playerInfoObjs = getAllPlayerInfo();
+            data = new GameData();
             foreach (EnemyLoader obj in EnemyObjs)
             {
                 obj.saveGame(ref data.EnemyData);
@@ -121,7 +118,6 @@ namespace NBGame.saveSystem
             }
             foreach (playerInfoLoader obj in playerInfoObjs)
             {
-                Debug.Log(obj);
                 obj.saveGame(ref data.playerInfo);
             }
             Handler.save(data);

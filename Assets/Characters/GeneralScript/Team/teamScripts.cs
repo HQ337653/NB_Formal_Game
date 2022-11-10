@@ -99,6 +99,7 @@ namespace NBGame.Player
             { 
                 controllerScript.CharacterOnSceneChanged += changeTarget;
                 transform.localPosition = Vector3.zero;
+                //gameObject.transform.parent = TeamController.currentCharaPostion;
             }
 
             private void OnDestroy()
@@ -106,9 +107,9 @@ namespace NBGame.Player
                 controllerScript.CharacterOnSceneChanged -= changeTarget;
                 Destroy(this);
             }
-            public void changeTarget(Transform tatget)
+            public void changeTarget(Transform target)
             {
-                gameObject.transform.parent = tatget;
+                gameObject.transform.parent = target;
             }
 
 

@@ -1,0 +1,152 @@
+{
+    "dialagueContents": [
+        {
+            "id": 0
+        },
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ],
+    "connectionsList": [
+        {
+            "begin": 0,
+            "beginIndex": 0,
+            "end": 1
+        },
+        {
+            "begin": 1,
+            "beginIndex": 0,
+            "end": 2
+        },
+        {
+            "begin": 2,
+            "beginIndex": 0,
+            "end": 3
+        }
+    ],
+    "index": 4,
+    "references": {
+        "version": 1,
+        "00000000": {
+            "type": {
+                "class": "dialogueData/characterChange",
+                "ns": "NBGame.dialogue",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "name": "",
+                "positionInEdictor": {
+                    "serializedVersion": "2",
+                    "x": 19.0,
+                    "y": 59.0,
+                    "width": 150.0,
+                    "height": 90.0
+                },
+                "PicturePosition": 0,
+                "index": 0,
+                "characters": [
+                    {
+                        "instanceID": 9606
+                    },
+                    {
+                        "instanceID": 0
+                    },
+                    {
+                        "instanceID": 9598
+                    }
+                ],
+                "charaPictureName": [
+                    "bluePerson",
+                    "",
+                    "orangePerson"
+                ]
+            }
+        },
+        "00000001": {
+            "type": {
+                "class": "dialogueData/singleDialogue",
+                "ns": "NBGame.dialogue",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "name": "a",
+                "positionInEdictor": {
+                    "serializedVersion": "2",
+                    "x": 217.0,
+                    "y": 66.0,
+                    "width": 150.0,
+                    "height": 90.0
+                },
+                "PicturePosition": 0,
+                "index": 1,
+                "characterPicture": {
+                    "instanceID": 9606
+                },
+                "characterPictureName": "bluePerson",
+                "dialogueContent": "hi"
+            }
+        },
+        "00000002": {
+            "type": {
+                "class": "dialogueData/singleDialogue",
+                "ns": "NBGame.dialogue",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "name": "b",
+                "positionInEdictor": {
+                    "serializedVersion": "2",
+                    "x": 450.0,
+                    "y": 69.0,
+                    "width": 150.0,
+                    "height": 90.0
+                },
+                "PicturePosition": 1,
+                "index": 2,
+                "characterPicture": {
+                    "instanceID": 9598
+                },
+                "characterPictureName": "orangePerson",
+                "dialogueContent": "hihi"
+            }
+        },
+        "00000003": {
+            "type": {
+                "class": "dialogueData/singleDialogue",
+                "ns": "NBGame.dialogue",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "name": "a",
+                "positionInEdictor": {
+                    "serializedVersion": "2",
+                    "x": 664.0,
+                    "y": 79.0,
+                    "width": 150.0,
+                    "height": 90.0
+                },
+                "PicturePosition": 0,
+                "index": 3,
+                "characterPicture": {
+                    "instanceID": 9606
+                },
+                "characterPictureName": "bluePerson",
+                "dialogueContent": "bye"
+            }
+        },
+        "00000004": {
+            "type": {
+                "class": "Terminus",
+                "ns": "UnityEngine.DMAT",
+                "asm": "FAKE_ASM"
+            },
+            "data": {}
+        }
+    }
+}

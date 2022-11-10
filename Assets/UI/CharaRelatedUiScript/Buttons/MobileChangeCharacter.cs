@@ -36,7 +36,6 @@ namespace NBGame.Player
 
         private void Initialize()
         {
-            Debug.Log("!");
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);

@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "pick",
+                    "type": "Button",
+                    "id": "dbb414f8-2002-4695-8098-530705118705",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -80,6 +88,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "changeChara4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "366a9ce9-6c6c-4d36-abd0-46b429cf0740",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "pick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -467,6 +486,33 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Dialogue",
+            "id": "3aacfdd0-7501-43cb-bb61-a11126a5b175",
+            "actions": [
+                {
+                    "name": "playNext",
+                    "type": "Button",
+                    "id": "d38985cf-da70-4b77-87bc-5abbe4375e01",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b7400458-5f49-4638-9e1b-4c91f65792b2",
+                    "path": "<Keyboard>/#(')",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "playNext",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

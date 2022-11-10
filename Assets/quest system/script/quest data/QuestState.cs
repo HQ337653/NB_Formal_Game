@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
 namespace NBGame.quest
 {
+    //QuestState save the state and also save a reference of which the Quest is these states for, can be serilized into json
     [System.Serializable]
     public class QuestState
     {
@@ -26,7 +26,6 @@ namespace NBGame.quest
             {
                 subquestFinished.Add(false);
             }
-            Debug.Log(subquestFinished.Count);
             requirementsFinshed = new List<bool>();
             for (int i = 0; i < Base.subQuests.Count; i++)
             {
@@ -36,7 +35,6 @@ namespace NBGame.quest
                 }
 
             }
-            Debug.Log(requirementsFinshed.Count);
 
         }
 
@@ -87,7 +85,6 @@ namespace NBGame.quest
                 targetIndex += Base.subQuests[i].requirements.Count;
             }
             targetIndex += requrementIndex;
-            Debug.Log(targetIndex);
             requirementsFinshed[targetIndex] = value;
 
             //cheak if all requirement meet and can move on

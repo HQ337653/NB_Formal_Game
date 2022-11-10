@@ -6,14 +6,17 @@ namespace NBGame.UI
 {
     public class SimpleBarSetter : MonoBehaviour
     {
-        Slider thisSlider;
+        [SerializeField]
+       public Slider S;
         private void Awake()
         {
-            thisSlider = GetComponent<Slider>();
+            S = GetComponent<Slider>();
         }
+
+
         public void setValue(float percent)
         {
-            thisSlider.value = percent;
+            S.value = percent;
         }
     }
 }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7503f1175bd607c488fffb54a4c3b6e4, type: 3}
   m_Name: Hp0 4
   m_EditorClassIdentifier: 
-  CurrentHP: 1830
+  CurrentHP: 2000
   MaxHp: 2000
   maxPoiseHealth: 60
-  poiseHealth: 50
+  poiseHealth: 10
   atk: 0
   def: 0
   MoveSpeedRate: 0

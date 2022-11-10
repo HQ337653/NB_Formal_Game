@@ -69,19 +69,12 @@ namespace NBGame.quest
 
         public void LoadGame(playerInfo data)
         {
-            Debug.Log("load!!");
-            //creatEmptyQ();
-            Debug.Log(JsonUtility.ToJson(data));
-            Debug.Log(JsonUtility.ToJson(data.questStatesSave));
-            Debug.Log(data.questStatesSave);
-            foreach (QuestState questState in data.questStatesSave)
-            {
-                Debug.Log("jdcjwel");
-                Debug.Log(questState);
-                Debug.Log(JsonUtility.ToJson(questState));
-
-                questState.Base = questDictionary[questState.index];
-                questStateDictionary[questState.index] = questState;
+            if (data.questStatesSave!=null) {
+                foreach (QuestState questState in data.questStatesSave)
+                {
+                    questState.Base = questDictionary[questState.index];
+                    questStateDictionary[questState.index] = questState;
+                }
             }
         }
 
@@ -89,18 +82,13 @@ namespace NBGame.quest
 
         public void saveGame(ref playerInfo data)
         {
-            Debug.Log("save!!");
             List<QuestState> questSaves = new List<QuestState>();
 
             foreach (KeyValuePair<int, QuestState> questState in questStateDictionary)
             {
-                Debug.Log("!!!!!");
                 questSaves.Add(questState.Value);
-                Debug.Log(JsonUtility.ToJson(questState.Value));
-                Debug.Log(questState);
             }
             data.saveQuestState(questSaves);
-
         }
     }
 }

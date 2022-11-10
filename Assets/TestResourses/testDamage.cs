@@ -16,10 +16,12 @@ namespace NBGame.TestResource
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("!!");
             gameObjects.Add(other);
         }
         private void OnTriggerExit(Collider other)
         {
+            Debug.Log("--");
             gameObjects.Remove(other);
         }
         protected virtual IEnumerator normalAtkProcess()
@@ -29,9 +31,14 @@ namespace NBGame.TestResource
                 Collider[] c = Physics.OverlapBox(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), new Vector3(gameObject.transform.localScale.x / 2, gameObject.transform.localScale.y / 2, gameObject.transform.localScale.z / 2));
                 foreach (Collider a in c)
                 {
+                    
                     if (a.gameObject.activeInHierarchy == true)
                     {
-                        a.gameObject.GetComponent<CharacterHp>()?.damage(10, false);
+                        if (a.gameObject.GetComponent<CharacterHp>() != null)
+                        {
+                            a.gameObject.GetComponent<CharacterHp>()?.damage(10, false);
+                        }
+                        
                     }
 
                 }

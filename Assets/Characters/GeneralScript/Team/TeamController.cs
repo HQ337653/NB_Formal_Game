@@ -7,6 +7,8 @@ namespace NBGame.Player
     //load character based on the given prefeb, and implement the changed of character in the scene
     public class TeamController : MonoBehaviour
     {
+        [SerializeField]
+        public static Transform currentCharaPostion { get; private set; }
         
         //Prefeb
         public GameObject CharaOnePre;
@@ -125,7 +127,7 @@ namespace NBGame.Player
         private int changeCharaOnScene(int i, Transform targetTransform)
         {
             bool moving;
-
+            
             // switch off the previous chara
                UnsubScribe(getChara(currentCharacter).GetComponentInChildren<CharaChangeUiEvents>());
                int prevChara = currentCharacter;
@@ -140,15 +142,14 @@ namespace NBGame.Player
                subScribe(characters[i].GetComponentInChildren<CharaChangeUiEvents>());
             characters[i].GetComponentInChildren<CharaModeSwitcher>().Move3D = moving;
             characters[i].SetActive(true);
-            
+            currentCharaPostion = characters[i].transform;
             CameraFollowCharacter.followChara(characters[i].transform.GetChild(0).gameObject);
                CharacterChanged?.Invoke(currentCharacter);
                UiController.specialBars.setActivation(i);
+            
             return prevChara;
 
         }
-
-
         public int changeCharaOnScene(int i)
         {
 

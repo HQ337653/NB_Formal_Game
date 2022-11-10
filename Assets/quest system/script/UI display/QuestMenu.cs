@@ -1,10 +1,7 @@
 using NBGame.quest;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NBGame.quest;
-using System.Reflection;
-
+// display all the quest in a vertical layout, user can press on it to see the detail of the quest
 namespace NBGame.UI
 {
     public class QuestMenu : MonoBehaviour
@@ -16,7 +13,6 @@ namespace NBGame.UI
 
         private void Start()
         {
-            Debug.Log(gameObject.name);
             showQuest();
         }
        public void showQuest()

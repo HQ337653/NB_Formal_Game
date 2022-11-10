@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NBGame.dialogue;
+using UnityEngine.InputSystem.XR;
 //collect all the Uis function into one script 
 namespace NBGame.UI
 {
@@ -36,10 +38,28 @@ namespace NBGame.UI
         public SimpleBarSetter HealthBar;
         public SimpleBarSetter EnergyBar;
 
+        [SerializeField]
+        private dialoguePlayer dialogePlayer;
+        private static UiController uiController;
+
         private void Awake()
         {
+            uiController = this;
             GameModeController.CharacterChangedIfToActive += switchMode;
             GameModeController.ModeChangediFTo2D += switchAtkUi;
+        }
+
+        public static void showDialoge(dialogueData data)
+        {
+            GameModeController.SetCharaActivation(false);
+            uiController?.dialogePlayer.startPlay(data);
+
+        }
+        public static void EndDialoge()
+        {
+            GameModeController.SetCharaActivation(true);
+               // uiController?.dialogePlayer.endPlay();
+
         }
         #region changeUiPicture
 
@@ -146,14 +166,22 @@ namespace NBGame.UI
         {
             ComboDisplay.SetActive(!Notatk);
             Atk.SetActive(!Notatk);
-            NotAtk?.SetActive(Notatk);
+            
+            if (NotAtk != null)
+            {
+                NotAtk.SetActive(Notatk);
+            }
         }
 
         public void disActiveAtkPart()
         {
             Atk.SetActive(false);
             ComboDisplay.SetActive(false);
-            NotAtk?.SetActive(false);
+            if (NotAtk!=null)
+            {
+                NotAtk.SetActive(false);
+            }
+            
         }
 
         public void switchHealthUi(bool show)

@@ -49,6 +49,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""pick"",
+                    ""type"": ""Button"",
+                    ""id"": ""dbb414f8-2002-4695-8098-530705118705"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -93,6 +101,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""changeChara4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""366a9ce9-6c6c-4d36-abd0-46b429cf0740"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""pick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -484,6 +503,33 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Dialogue"",
+            ""id"": ""3aacfdd0-7501-43cb-bb61-a11126a5b175"",
+            ""actions"": [
+                {
+                    ""name"": ""playNext"",
+                    ""type"": ""Button"",
+                    ""id"": ""d38985cf-da70-4b77-87bc-5abbe4375e01"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b7400458-5f49-4638-9e1b-4c91f65792b2"",
+                    ""path"": ""<Keyboard>/#(')"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""playNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -494,6 +540,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Universal_changeChara2 = m_Universal.FindAction("changeChara2", throwIfNotFound: true);
         m_Universal_changeChara3 = m_Universal.FindAction("changeChara3", throwIfNotFound: true);
         m_Universal_changeChara4 = m_Universal.FindAction("changeChara4", throwIfNotFound: true);
+        m_Universal_pick = m_Universal.FindAction("pick", throwIfNotFound: true);
         // In3d
         m_In3d = asset.FindActionMap("In3d", throwIfNotFound: true);
         m_In3d_E = m_In3d.FindAction("E", throwIfNotFound: true);
@@ -510,6 +557,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_In2d_Newaction = m_In2d.FindAction("New action", throwIfNotFound: true);
         m_In2d_LeftRight = m_In2d.FindAction("LeftRight", throwIfNotFound: true);
         m_In2d_Jump = m_In2d.FindAction("Jump", throwIfNotFound: true);
+        // Dialogue
+        m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
+        m_Dialogue_playNext = m_Dialogue.FindAction("playNext", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -563,6 +613,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Universal_changeChara2;
     private readonly InputAction m_Universal_changeChara3;
     private readonly InputAction m_Universal_changeChara4;
+    private readonly InputAction m_Universal_pick;
     public struct UniversalActions
     {
         private @PlayerInput m_Wrapper;
@@ -571,6 +622,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @changeChara2 => m_Wrapper.m_Universal_changeChara2;
         public InputAction @changeChara3 => m_Wrapper.m_Universal_changeChara3;
         public InputAction @changeChara4 => m_Wrapper.m_Universal_changeChara4;
+        public InputAction @pick => m_Wrapper.m_Universal_pick;
         public InputActionMap Get() { return m_Wrapper.m_Universal; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -592,6 +644,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @changeChara4.started -= m_Wrapper.m_UniversalActionsCallbackInterface.OnChangeChara4;
                 @changeChara4.performed -= m_Wrapper.m_UniversalActionsCallbackInterface.OnChangeChara4;
                 @changeChara4.canceled -= m_Wrapper.m_UniversalActionsCallbackInterface.OnChangeChara4;
+                @pick.started -= m_Wrapper.m_UniversalActionsCallbackInterface.OnPick;
+                @pick.performed -= m_Wrapper.m_UniversalActionsCallbackInterface.OnPick;
+                @pick.canceled -= m_Wrapper.m_UniversalActionsCallbackInterface.OnPick;
             }
             m_Wrapper.m_UniversalActionsCallbackInterface = instance;
             if (instance != null)
@@ -608,6 +663,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @changeChara4.started += instance.OnChangeChara4;
                 @changeChara4.performed += instance.OnChangeChara4;
                 @changeChara4.canceled += instance.OnChangeChara4;
+                @pick.started += instance.OnPick;
+                @pick.performed += instance.OnPick;
+                @pick.canceled += instance.OnPick;
             }
         }
     }
@@ -758,12 +816,46 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         }
     }
     public In2dActions @In2d => new In2dActions(this);
+
+    // Dialogue
+    private readonly InputActionMap m_Dialogue;
+    private IDialogueActions m_DialogueActionsCallbackInterface;
+    private readonly InputAction m_Dialogue_playNext;
+    public struct DialogueActions
+    {
+        private @PlayerInput m_Wrapper;
+        public DialogueActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @playNext => m_Wrapper.m_Dialogue_playNext;
+        public InputActionMap Get() { return m_Wrapper.m_Dialogue; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DialogueActions set) { return set.Get(); }
+        public void SetCallbacks(IDialogueActions instance)
+        {
+            if (m_Wrapper.m_DialogueActionsCallbackInterface != null)
+            {
+                @playNext.started -= m_Wrapper.m_DialogueActionsCallbackInterface.OnPlayNext;
+                @playNext.performed -= m_Wrapper.m_DialogueActionsCallbackInterface.OnPlayNext;
+                @playNext.canceled -= m_Wrapper.m_DialogueActionsCallbackInterface.OnPlayNext;
+            }
+            m_Wrapper.m_DialogueActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @playNext.started += instance.OnPlayNext;
+                @playNext.performed += instance.OnPlayNext;
+                @playNext.canceled += instance.OnPlayNext;
+            }
+        }
+    }
+    public DialogueActions @Dialogue => new DialogueActions(this);
     public interface IUniversalActions
     {
         void OnChangeChara1(InputAction.CallbackContext context);
         void OnChangeChara2(InputAction.CallbackContext context);
         void OnChangeChara3(InputAction.CallbackContext context);
         void OnChangeChara4(InputAction.CallbackContext context);
+        void OnPick(InputAction.CallbackContext context);
     }
     public interface IIn3dActions
     {
@@ -782,5 +874,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnNewaction(InputAction.CallbackContext context);
         void OnLeftRight(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+    }
+    public interface IDialogueActions
+    {
+        void OnPlayNext(InputAction.CallbackContext context);
     }
 }

@@ -6,9 +6,12 @@ public class GameModeController : MonoBehaviour
     #region changeD: GameModeController.ModeChangediFTo2D(if 2d)
     private bool Is2d;
     public static handler ModeChangediFTo2D;
+
+    static GameModeController g;
     private void Awake()
     {
         Is2d = true;
+        g = this;
         isCharacerActive = true;
     }
     public static void changeMode()
@@ -35,7 +38,6 @@ public class GameModeController : MonoBehaviour
     public static void SetCharaActivation(bool isActive)
     {
         
-        GameModeController g = FindObjectOfType<GameModeController>();
         if (isActive != g.isCharacerActive)
         {
             g.isCharacerActive = isActive;
